@@ -3,6 +3,7 @@
   import Options from "./components/Options.svelte";
 
   let state = [];
+  let width = 10;
 </script>
 
 <main>
@@ -15,13 +16,16 @@
         on:updateState={(event) => {
           state = event.detail.variable;
         }}
+        on:updateWidth={(event) => {
+          width = event.detail.variable;
+        }}
       />
     </div>
   
     <div class="content-container">
       <div class="sorted-algotihm">
         {#each state as { value, type }}
-          <Bar {value} {type} />
+          <Bar {value} {type} {width} />
         {/each}
       </div>
     </div>
@@ -53,7 +57,6 @@
     flex-direction: column;
     align-items: center;
     justify-content: space-between;
-    height: 100%;
     width: 70%;
   }
 

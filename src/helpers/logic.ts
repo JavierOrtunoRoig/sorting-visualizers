@@ -27,7 +27,9 @@ export function playAlgotimh(
   elementsSlider: number,
   speedSlider: number,
   frecuency: number,
-  updateState: (state: ArrayElement[]) => void, playNote
+  updateState: (state: ArrayElement[]) => void,
+  playNote: (frequency: number) => void,
+  updateInterval: (interval: any) => void
 ) {
   const moves = bubbleSort(state);
 
@@ -47,4 +49,5 @@ export function playAlgotimh(
       updateState(state);
     }
   }, speedSlider);
+  updateInterval(interval);
 }

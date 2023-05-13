@@ -3,8 +3,7 @@
 
   export let value: number;
   export let type: AlgorithmStep = "unsorted";
-
-  console.log({value, type});
+  export let width: number;
 
   $: color = {
     unsorted: "white",
@@ -15,11 +14,11 @@
 
 </script>
 
-<div class="bar" style="--height:{value}%;--color:{color}" />
+<div class="bar" style="--height:{value}%; --width:{width}px; --color:{color}" />
 
 <style>
   .bar {
-    width: 30px;
+    width: var(--width);
     height: var(--height);
     background-color: var(--color);
     margin: 1px 1px;
