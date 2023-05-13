@@ -1,6 +1,24 @@
 import type { ArrayElement } from "../types";
 import { bubbleSort } from "./bubbleSort";
 
+let audioCtx: AudioContext = null;
+
+export const playNote = (frequency: number) => {
+  if (audioCtx === null) {
+    audioCtx = new AudioContext();
+  }
+  const dur = 0.1;
+  const osc = audioCtx.createOscillator();
+  osc.frequency.value = frequency;
+  osc.start();
+  osc.stop(audioCtx.currentTime + dur);
+  const node = audioCtx.createGain();
+  node.gain.value = 0.1;
+  node.gain.linearRampToValueAtTime(0, audioCtx.currentTime + dur);
+  osc.connect(node);
+  node.connect(audioCtx.destination);
+}
+
 export function init(numberOfElements: number): ArrayElement[] {
   return generateArray(numberOfElements).map((el) => ({
     value: el,

@@ -1,8 +1,7 @@
 <script lang="ts">
   import { createEventDispatcher, onMount } from "svelte";
   import RangeSlider from "svelte-range-slider-pips";
-  import { init, playAlgotimh, setFrequency } from "../helpers/logic";
-  import { playNote } from "../helpers/main";
+  import { init, playAlgotimh, setFrequency, playNote } from "../helpers/logic";
 
   export let state;
   
