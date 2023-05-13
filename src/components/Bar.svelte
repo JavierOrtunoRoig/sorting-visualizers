@@ -19,7 +19,7 @@
 
 <style>
   .bar {
-    width: 10px;
+    width: 30px;
     height: var(--height);
     background-color: var(--color);
     margin: 1px 1px;

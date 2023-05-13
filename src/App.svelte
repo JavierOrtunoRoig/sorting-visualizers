@@ -3,8 +3,10 @@
   import { bubbleSort } from "./helpers/bubbleSort";
   import { playNote } from "./helpers/main";
   import { init } from "./helpers/logic";
+  import Options from "./components/Options.svelte";
 
-  const numberOfElements = 100;
+  let numberOfElements = 5;
+  let speed = 1000;
   let actualState = [];
   let frecuency = setFrequency();
 
@@ -20,7 +22,6 @@
 
   const handleInit = () => {
     actualState = [...init(numberOfElements)];
-    console.log(actualState);
   };
 
   const handlePlay = () => {
@@ -31,46 +32,99 @@
       if (move) {
         actualState = [...move];
         playNote(frecuency);
-        if (frecuency < 2000) 
+        if (frecuency < 1200) 
           frecuency += 1;
+        else {
+          frecuency = setFrequency();
+        }
         console.log(frecuency);
       } else {
         clearInterval(interval);
         actualState = actualState.map((item) => ({ ...item, type: "sorted" }));
       }
-    }, 1);
+    }, speed);
   };
+
+  function updateNumberOfElements(event) {
+    numberOfElements = event.detail.variable;
+  }
+
+  function updateSpped(event) {
+    console.log(event);
+    speed = event.detail.variable;
+  }
 
 </script>
 
 <main>
   <h1>Sorting Visualizer</h1>
-  <div id="container">
-    {#each actualState as { value, type }}
-      <Bar {value} {type} />
-    {/each}
+
+  <div class="container">
+    <div class="options">
+      <Options
+        on:updateNumberElements={updateNumberOfElements}
+        on:updateSpeed={updateSpped}
+      />
+    </div>
+  
+    <div class="content-container">
+      <div class="sorted-algotihm">
+        {#each actualState as { value, type }}
+          <Bar {value} {type} />
+        {/each}
+      </div>
+    
+    
+      <div>
+        <button on:click={handleInit}>init</button>
+        <button on:click={handlePlay}>play</button>
+      </div>
+    </div>
   </div>
 
-  <div class="line" />
-
-  <div>
-    <button on:click={handleInit}>init</button>
-    <button on:click={handlePlay}>play</button>
-  </div>
 </main>
 
 <style>
-  .line {
-    width: 100%;
-    height: 1px;
-    background-color: #fff;
+
+  /* set --range-slider to orange */
+  :root {
+    --range-handle-focus: orange;
+    --range-handle: orange;
+    --range-handle-inactive: orange;
   }
 
-  #container {
+  h1 {
+    color: orange;
+  }
+
+  .container {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+
+  .content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    width: 70%;
+  }
+
+  .sorted-algotihm {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-    height: 100px;
-    width: auto;
+    justify-content: center;
+    height: 500px;
+    width: 200px;
+  }
+
+  .options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 30%;
   }
 </style>
