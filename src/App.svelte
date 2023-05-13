@@ -1,59 +1,8 @@
 <script lang="ts">
   import Bar from "./components/Bar.svelte";
-  import { bubbleSort } from "./helpers/bubbleSort";
-  import { playNote } from "./helpers/main";
-  import { init } from "./helpers/logic";
   import Options from "./components/Options.svelte";
 
-  let numberOfElements = 5;
-  let speed = 1000;
-  let actualState = [];
-  let frecuency = setFrequency();
-
-  function setFrequency() {
-    if (numberOfElements <= 10) {
-      return 800;
-    } else if (numberOfElements <= 20) {
-      return  500;
-    } else {
-      return 100;
-    }
-  }
-
-  const handleInit = () => {
-    actualState = [...init(numberOfElements)];
-  };
-
-  const handlePlay = () => {
-    const moves = bubbleSort(actualState);
-
-    const interval = setInterval(() => {
-      const move = moves.shift();
-      if (move) {
-        actualState = [...move];
-        playNote(frecuency);
-        if (frecuency < 1200) 
-          frecuency += 1;
-        else {
-          frecuency = setFrequency();
-        }
-        console.log(frecuency);
-      } else {
-        clearInterval(interval);
-        actualState = actualState.map((item) => ({ ...item, type: "sorted" }));
-      }
-    }, speed);
-  };
-
-  function updateNumberOfElements(event) {
-    numberOfElements = event.detail.variable;
-  }
-
-  function updateSpped(event) {
-    console.log(event);
-    speed = event.detail.variable;
-  }
-
+  let state = [];
 </script>
 
 <main>
@@ -62,22 +11,18 @@
   <div class="container">
     <div class="options">
       <Options
-        on:updateNumberElements={updateNumberOfElements}
-        on:updateSpeed={updateSpped}
+        state={state}
+        on:updateState={(event) => {
+          state = event.detail.variable;
+        }}
       />
     </div>
   
     <div class="content-container">
       <div class="sorted-algotihm">
-        {#each actualState as { value, type }}
+        {#each state as { value, type }}
           <Bar {value} {type} />
         {/each}
-      </div>
-    
-    
-      <div>
-        <button on:click={handleInit}>init</button>
-        <button on:click={handlePlay}>play</button>
       </div>
     </div>
   </div>
@@ -118,7 +63,7 @@
     align-items: flex-end;
     justify-content: center;
     height: 500px;
-    width: 200px;
+    width: 100%;
   }
 
   .options {

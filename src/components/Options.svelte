@@ -1,22 +1,30 @@
-<script>
+<script lang="ts">
   import { createEventDispatcher } from "svelte";
   import RangeSlider from "svelte-range-slider-pips";
+  import { init, playAlgotimh, setFrequency } from "../helpers/logic";
+  import { playNote } from "../helpers/main";
 
+  export let state;
   let elementsSlider = [5];
   let speedSlider = [1000];
+  let frecuency = setFrequency(elementsSlider[0]);
+
   const dispatch = createEventDispatcher();
 
-  function updateNumberOfElemets() {
-    dispatch("updateNumberElements", {
-      variable: elementsSlider[0],
+  function updateState(state) {
+    dispatch("updateState", {
+      variable: state,
     });
   }
 
-  function updateSpeed() {
-    dispatch("updateSpeed", {
-      variable: elementsSlider[0],
-    });
-  }
+  const handleInit = () => {
+    state = [...init(elementsSlider[0])];
+    updateState(state);
+  };
+
+  const handlePlay = () => {
+    playAlgotimh(state, elementsSlider[0], speedSlider[0], frecuency, updateState, playNote);
+  };
 </script>
 
 <div class="container">
@@ -29,7 +37,6 @@
     first="label"
     last="label"
     bind:values={elementsSlider}
-    on:change={updateNumberOfElemets}
   />
   <RangeSlider
     min={0}
@@ -40,12 +47,13 @@
     first="label"
     last="label"
     bind:values={speedSlider}
-    on:change={updateSpeed}
   />
 
   <div>
     <p><span>Number of Elements:</span> {elementsSlider}</p>
     <p><span>Speed of animations:</span> {speedSlider}</p>
+    <button on:click={handleInit}>init</button>
+    <button on:click={handlePlay}>play</button>
   </div>
 </div>
 
