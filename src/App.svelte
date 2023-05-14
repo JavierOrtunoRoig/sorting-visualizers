@@ -58,6 +58,7 @@
     align-items: center;
     justify-content: space-between;
     width: 70%;
+    overflow-x: auto;
   }
 
   .sorted-algotihm {
@@ -66,7 +67,6 @@
     align-items: flex-end;
     justify-content: center;
     height: 500px;
-    width: 100%;
   }
 
   .options {
@@ -74,5 +74,26 @@
     flex-direction: row;
     justify-content: space-between;
     width: 30%;
+  }
+
+  @media (max-width: 800px) {
+    .container {
+      flex-direction: column;
+    }
+
+    .content-container {
+      width: 90vw;
+      height: auto;
+      overflow-y: scroll;
+    }
+
+    .sorted-algotihm {
+      transform: rotate(90deg);
+      height: 85vw;
+    }
+
+    .options {
+      width: 100%;
+    }
   }
 </style>

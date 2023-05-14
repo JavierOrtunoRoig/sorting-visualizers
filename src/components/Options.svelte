@@ -88,7 +88,7 @@
     <p><span>Number of Elements:</span> {elementsSlider}</p>
     <p><span>Speed of animations:</span> {speedSlider}</p>
     <p><span>Width of bars:</span> {widthSlider}</p>
-    <button on:click={handlePlay}>play</button>
+    <button class="play" on:click={handlePlay}>play</button>
   </div>
 </div>
 
@@ -103,4 +103,11 @@
     font-weight: bold;
     color: orange;
   }
+
+  @media (max-width: 800px) {
+    .play {
+      margin-bottom: 10px;
+    }
+  }
+
 </style>

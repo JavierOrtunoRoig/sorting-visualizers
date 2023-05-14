@@ -24,4 +24,5 @@
     box-shadow: 0 0 5px var(--color);
     margin: 1px 1px;
   }
+
 </style>
