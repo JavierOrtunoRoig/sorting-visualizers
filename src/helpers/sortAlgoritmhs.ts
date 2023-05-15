@@ -8,6 +8,7 @@ const addState = (state, array, type, firstIndex, secondIndex) => {
 }
 
 export const bubbleSort = (inputArr: ArrayElement[]): ArrayElement[] => {
+  console.log("Running bubble sort");
   let swapped;
   const state = [];
   do {
@@ -27,6 +28,7 @@ export const bubbleSort = (inputArr: ArrayElement[]): ArrayElement[] => {
 };
 
 export const selectionSort = (arr: ArrayElement[]): ArrayElement[] => {
+  console.log("Running selection sort");
   const state = [];
   for (let i = 0; i < arr.length - 1; i++) {
     let min = i;
@@ -43,17 +45,23 @@ export const selectionSort = (arr: ArrayElement[]): ArrayElement[] => {
 }
 
 export const insertionSort = (arr: ArrayElement[]): ArrayElement[] => {
+  console.log("Running insertion sort");
   const state = [];
   let i, key, j;
   for (i = 1; i < arr.length; i++) {
-    key = arr[i];
+    key = arr[i].value;
     j = i - 1;
     /* Move elements of arr[0..i-1], that are  greater than key, to one position ahead of their current position */
-    while (j >= 0 && arr[j] > key) {
-      arr[j + 1] = arr[j];
+    addState(state, arr, 'compare', j, i);
+    while (j >= 0 && arr[j].value > key) {
+      addState(state, arr, 'compare', j, i);
+      arr[j + 1].value = arr[j].value;
       j = j - 1;
+      if ( j >= 0) {
+        addState(state, arr, 'swap', j, j + 1);
+      }
     }
-    arr[j + 1] = key;
+    arr[j + 1].value = key;
   }
 
   return state;

@@ -7,6 +7,7 @@
 
   export let state: ArrayElement[];
 
+  let selectedAlgoritmh;
   let widthSlider = [10];
   let elementsSlider = [5];
   let speedSlider = [1000];
@@ -21,6 +22,10 @@
       value: "selection",
       label: "Selection Sort",
     },
+    {
+      value: "insertion",
+      label: "Insertion Sort",
+    }
   ];
 
   const dispatch = createEventDispatcher();
@@ -43,7 +48,7 @@
 
   const handlePlay = () => {
     playAlgotimh(
-      "bubble",
+      selectedAlgoritmh,
       state,
       elementsSlider[0],
       speedSlider[0],
@@ -91,7 +96,6 @@
     on:change={() => {
       clearInterval(interval);
       updateState(clearState(state));
-      // renderGraph();
     }}
   />
   <RangeSlider
@@ -112,7 +116,7 @@
     <p><span>Width of bars:</span> {widthSlider}</p>
 
     <div class="play">
-      <Select class="external-select" value={algoritmhs[0]} items={algoritmhs} placeholder={"Please, select an algoritimh"} />
+      <Select class="external-select" value={algoritmhs[0]} items={algoritmhs} bind:justValue={selectedAlgoritmh} placeholder={"Please, select an algoritimh"} />
       <button class="play" on:click={handlePlay}>play</button>
     </div>
   </div>

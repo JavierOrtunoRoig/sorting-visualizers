@@ -1,5 +1,5 @@
 import type { Algorithm, ArrayElement } from "../types";
-import { bubbleSort, selectionSort } from "./sortAlgoritmhs";
+import { bubbleSort, insertionSort, selectionSort } from "./sortAlgoritmhs";
 import confetti from "canvas-confetti";
 import {Howl} from 'howler';
 
@@ -7,9 +7,6 @@ let audioCtx: AudioContext = null;
 const soundOptions = {
   src: ['finish-sound.mp3'],
   volume: 0.3,
-  onend: function() {
-    console.log('Finished!');
-  }
 }
 
 
@@ -63,8 +60,10 @@ export function playAlgotimh(
   let moves = null;
   if (algorithm === "bubble") {
     moves = bubbleSort(state);
-  } else {
+  } else if (algorithm === "selection"){
     moves = selectionSort(state);
+  } else if (algorithm === "insertion"){
+    moves = insertionSort(state);
   }
 
   const interval = setInterval(() => {
