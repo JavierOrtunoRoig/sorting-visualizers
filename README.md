@@ -45,4 +45,32 @@ The bubblesort algorithm has a time complexity of O(n^2), which means its effici
 
 ![Bubble Sort](https://upload.wikimedia.org/wikipedia/commons/c/c8/Bubble-sort-example-300px.gif)
 
-You can find the code for the bubble sort algorithm in [here.](docs/bubblesort.ts)
+You can find the code for the bubble sort algorithm in [here.](docs/bubbleSort.ts)
+
+### Selection Sort
+
+The selection sort algorithm is a simple sorting algorithm used to sort a list of elements. The approach of selection sort is to repeatedly find the smallest (or largest, depending on the sorting order) element from the unsorted portion of the list and place it at the beginning of the sorted portion.
+
+Here's the pseudocode for the selection sort algorithm:
+
+1. Start the selection sort algorithm
+2. Define a list of elements to be sorted
+3. Get the number of elements in the list (n)
+4. Repeat steps 5-7 for i from 0 to n-1
+5. Set the minimum index to i
+6. Repeat steps 7-8 for j from i+1 to n
+7. If the element at position j is smaller than the element at the minimum position, update the minimum index to j
+8. End of the inner loop
+9. Swap the element at position i with the element at the minimum position
+10. End of the outer loop
+11. End of the selection sort algorithm
+
+In each outer iteration (step 4), the algorithm searches for the smallest element in the unsorted portion of the list and places it at the correct position at the beginning of the sorted portion. To do this, a search is performed in the unsorted portion of the list (step 6) to find the smallest element, and the minimum index is updated accordingly.
+
+Once the smallest element is found, it is swapped with the element at the current position of the outer iteration (step 9). This ensures that in each outer iteration, the smallest element is placed at the correct position in the sorted list.
+
+The selection sort algorithm also has a time complexity of O(n^2), which means its efficiency decreases significantly for large lists. However, unlike bubblesort, the selection sort minimizes the number of swaps performed, which can be beneficial in some cases where swaps are expensive compared to comparisons.
+
+![Selection Sort](https://markbowman.org/LCC/SortSelection.gif)
+
+You can find the code for the bubble sort algorithm in [here.](docs/selectionSort.ts)

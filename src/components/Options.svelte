@@ -1,16 +1,27 @@
 <script lang="ts">
   import RangeSlider from "svelte-range-slider-pips";
+  import Select from "svelte-select";
+  import type { ArrayElement } from "../types";
   import { createEventDispatcher, onMount } from "svelte";
-  import { init, playAlgotimh, setFrequency, playNote } from "../helpers/logic";
+  import { init, playAlgotimh, setFrequency, playNote, clearState } from "../helpers/logic";
 
-  export let state;
-  
+  export let state: ArrayElement[];
+
   let widthSlider = [10];
   let elementsSlider = [5];
   let speedSlider = [1000];
   let frecuency = setFrequency(elementsSlider[0]);
   let interval;
-  let sound;
+  const algoritmhs = [
+    {
+      value: "bubble",
+      label: "Bubble Sort",
+    },
+    {
+      value: "selection",
+      label: "Selection Sort",
+    },
+  ];
 
   const dispatch = createEventDispatcher();
 
@@ -31,13 +42,22 @@
   }
 
   const handlePlay = () => {
-    playAlgotimh(state, elementsSlider[0], speedSlider[0], frecuency, updateState, playNote, setInterval);
+    playAlgotimh(
+      "bubble",
+      state,
+      elementsSlider[0],
+      speedSlider[0],
+      frecuency,
+      updateState,
+      playNote,
+      setInterval
+    );
   };
-  
+
   const renderGraph = () => {
     state = [...init(elementsSlider[0])];
     updateState(state);
-  }
+  };
 
   onMount(() => {
     renderGraph();
@@ -69,8 +89,9 @@
     last="label"
     bind:values={speedSlider}
     on:change={() => {
-      clearInterval(interval)
-      renderGraph();
+      clearInterval(interval);
+      updateState(clearState(state));
+      // renderGraph();
     }}
   />
   <RangeSlider
@@ -86,10 +107,14 @@
   />
 
   <div>
-    <p><span>Number of Elements:</span> {elementsSlider}</p>
+    <p><span>Number of elements:</span> {elementsSlider}</p>
     <p><span>Speed of animations:</span> {speedSlider}</p>
     <p><span>Width of bars:</span> {widthSlider}</p>
-    <button class="play" on:click={handlePlay}>play</button>
+
+    <div class="play">
+      <Select class="external-select" value={algoritmhs[0]} items={algoritmhs} placeholder={"Please, select an algoritimh"} />
+      <button class="play" on:click={handlePlay}>play</button>
+    </div>
   </div>
 </div>
 
@@ -105,10 +130,30 @@
     color: orange;
   }
 
-  @media (max-width: 800px) {
-    .play {
-      margin-bottom: 10px;
-    }
+  :global(.external-select) {
+    color: black !important;
+    width: 50% !important;
   }
 
+  div.play {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 5px;
+  }
+
+  @media (max-width: 800px) {
+    div.play {
+      flex-direction: column;
+    }
+
+    :global(.external-select) {
+      width: 80% !important;
+    }
+
+    button.play {
+      margin: 10px;
+      width: 80%;
+    }
+  }
 </style>

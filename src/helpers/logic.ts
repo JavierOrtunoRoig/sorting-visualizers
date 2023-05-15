@@ -1,5 +1,5 @@
-import type { ArrayElement } from "../types";
-import { bubbleSort } from "./sortAlgoritmhs";
+import type { Algorithm, ArrayElement } from "../types";
+import { bubbleSort, selectionSort } from "./sortAlgoritmhs";
 import confetti from "canvas-confetti";
 import {Howl} from 'howler';
 
@@ -51,6 +51,7 @@ export function setFrequency(numberOfElements: number): number {
 }
 
 export function playAlgotimh(
+  algorithm: Algorithm,
   state: ArrayElement[],
   elementsSlider: number,
   speedSlider: number,
@@ -59,7 +60,12 @@ export function playAlgotimh(
   playNote: (frequency: number) => void,
   updateInterval: (interval: any) => void
 ) {
-  const moves = bubbleSort(state);
+  let moves = null;
+  if (algorithm === "bubble") {
+    moves = bubbleSort(state);
+  } else {
+    moves = selectionSort(state);
+  }
 
   const interval = setInterval(() => {
     const move = moves.shift();
@@ -81,4 +87,8 @@ export function playAlgotimh(
     }
   }, speedSlider);
   updateInterval(interval);
+}
+
+export const clearState = (state: ArrayElement[]): ArrayElement[] => {
+  return state.map((item) => ({ ...item, type: "unsorted" }));
 }

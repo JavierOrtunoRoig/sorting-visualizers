@@ -74,6 +74,7 @@
     flex-direction: row;
     justify-content: space-between;
     width: 30%;
+    padding: 1rem;
   }
 
   @media (max-width: 800px) {

@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "canvas-confetti": "^1.6.0",
-    "howler": "^2.2.3"
+    "howler": "^2.2.3",
+    "svelte-select": "^5.6.1"
   }
 }
