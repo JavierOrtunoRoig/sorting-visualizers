@@ -1,5 +1,5 @@
 import type { ArrayElement } from "../types";
-import { bubbleSort } from "./bubbleSort";
+import { bubbleSort } from "./sortAlgoritmhs";
 
 let audioCtx: AudioContext = null;
 
