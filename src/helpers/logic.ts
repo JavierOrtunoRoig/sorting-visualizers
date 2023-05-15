@@ -1,7 +1,17 @@
 import type { ArrayElement } from "../types";
 import { bubbleSort } from "./sortAlgoritmhs";
+import confetti from "canvas-confetti";
+import {Howl} from 'howler';
 
 let audioCtx: AudioContext = null;
+const soundOptions = {
+  src: ['finish-sound.mp3'],
+  volume: 0.3,
+  onend: function() {
+    console.log('Finished!');
+  }
+}
+
 
 export const playNote = (frequency: number) => {
   if (audioCtx === null) {
@@ -65,6 +75,9 @@ export function playAlgotimh(
       clearInterval(interval);
       state = state.map((item) => ({ ...item, type: "sorted" }));
       updateState(state);
+      confetti();
+      
+      new Howl(soundOptions).play();
     }
   }, speedSlider);
   updateInterval(interval);

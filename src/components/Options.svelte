@@ -1,6 +1,6 @@
 <script lang="ts">
-  import { createEventDispatcher, onMount } from "svelte";
   import RangeSlider from "svelte-range-slider-pips";
+  import { createEventDispatcher, onMount } from "svelte";
   import { init, playAlgotimh, setFrequency, playNote } from "../helpers/logic";
 
   export let state;
@@ -10,12 +10,12 @@
   let speedSlider = [1000];
   let frecuency = setFrequency(elementsSlider[0]);
   let interval;
+  let sound;
 
   const dispatch = createEventDispatcher();
 
   function setInterval(newInterval) {
     interval = newInterval;
-    console.log(interval);
   }
 
   function updateState(state) {
@@ -55,8 +55,8 @@
     last="label"
     bind:values={elementsSlider}
     on:change={() => {
+      clearInterval(interval);
       renderGraph();
-      clearInterval(interval)
     }}
   />
   <RangeSlider
@@ -70,6 +70,7 @@
     bind:values={speedSlider}
     on:change={() => {
       clearInterval(interval)
+      renderGraph();
     }}
   />
   <RangeSlider
