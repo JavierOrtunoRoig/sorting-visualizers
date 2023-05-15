@@ -1,4 +1,4 @@
-function bubbleSort(listToSort) {
+function bubbleSort(listToSort: number[]) {
   let swapped;
   do {
       swapped = false;

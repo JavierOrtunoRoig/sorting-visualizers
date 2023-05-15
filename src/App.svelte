@@ -28,6 +28,7 @@
           <Bar {value} {type} {width} />
         {/each}
       </div>
+      <div class="line" style="width: {width * state.length + 20}px;"></div>
     </div>
   </div>
 
@@ -44,6 +45,11 @@
 
   h1 {
     color: orange;
+  }
+
+  .line {
+    height: 1px;
+    background-color: aliceblue;
   }
 
   .container {
