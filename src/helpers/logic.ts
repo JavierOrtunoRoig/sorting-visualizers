@@ -1,4 +1,4 @@
-import type { Algorithm, ArrayElement } from "../types";
+import type { Algorithm, AlgorithmStep, ArrayElement } from "../types";
 import { bubbleSort, insertionSort, selectionSort } from "./sortAlgoritmhs";
 import confetti from "canvas-confetti";
 import {Howl} from 'howler';
@@ -55,7 +55,8 @@ export function playAlgotimh(
   frecuency: number,
   updateState: (state: ArrayElement[]) => void,
   playNote: (frequency: number) => void,
-  updateInterval: (interval: any) => void
+  updateInterval: (interval: any) => void,
+  setActualState: (state: ArrayElement[]) => void
 ) {
   let moves = null;
   if (algorithm === "bubble") {
@@ -71,6 +72,7 @@ export function playAlgotimh(
     if (move) {
       state = [...move];
       updateState(state);
+      setActualState(state);
       playNote(frecuency);
       if (frecuency < 1200) frecuency += 1;
       else {
@@ -78,8 +80,10 @@ export function playAlgotimh(
       }
     } else {
       clearInterval(interval);
+      setActualState(null)
       state = state.map((item) => ({ ...item, type: "sorted" }));
       updateState(state);
+      setActualState(state);
       confetti();
       
       new Howl(soundOptions).play();
@@ -90,4 +94,53 @@ export function playAlgotimh(
 
 export const clearState = (state: ArrayElement[]): ArrayElement[] => {
   return state.map((item) => ({ ...item, type: "unsorted" }));
+}
+
+export const getAction = (state: ArrayElement[]) => {
+  if (!state || state.length === state.filter(s => s.type === "sorted").length) return {action: "end", firstIndex: null, secondIndex: null};
+
+  let foundedFirstAction = false;
+  let foundedSecondAction = false;
+  let firstIndex = null;
+  let secondIndex = null;
+  let action: string = null;
+  
+  let i = 0;
+  while (!foundedFirstAction && i < state.length) {
+    if (state[i].type === "compare") {
+      foundedFirstAction = true;
+      action = "comparing";
+      firstIndex = i;
+    } else if (state[i].type === "swap") {
+      foundedFirstAction = true;
+      action = "swaping";
+      firstIndex = i;
+    } else if (state[i].type === "sorted") {
+      foundedFirstAction = true;
+      action = "sorted";
+      firstIndex = i;
+    }
+    i++;
+  }
+
+  while (!foundedSecondAction && i < state.length) {
+    if (state[i].type === "compare") {
+      foundedSecondAction = true;
+      secondIndex = i;
+    } else if (state[i].type === "swap") {
+      foundedSecondAction = true;
+      secondIndex = i;
+    } else if (state[i].type === "sorted") {
+      foundedSecondAction = true;
+      secondIndex = i;
+    }
+    i++;
+  }
+
+  if (!foundedFirstAction && !foundedSecondAction) {
+    action = "sorted";
+  }
+
+  return { action, firstIndex, secondIndex };
+  
 }

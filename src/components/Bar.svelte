@@ -7,9 +7,9 @@
 
   $: color = {
     unsorted: "white",
-    compare: "red",
-    swap: "green",
-    sorted: "cyan",
+    compare: "rgb(255, 74, 74)",
+    swap: "rgb(5, 196, 5)",
+    sorted: "rgb(8, 216, 216)",
   }[type];
 
 </script>
