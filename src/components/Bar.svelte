@@ -14,9 +14,22 @@
 
 </script>
 
-<div class="bar" style="--height:{value}%; --width:{width}px; --color:{color}" />
+<div class="container" style="--height:{value}%; --width:{width}px; --color:{color}" >
+  {#if width >= 20}
+    <p>{value}</p>
+  {/if}
+  <div class="bar" />
+</div>
+
 
 <style>
+  p {
+    margin: 0;
+    padding: 1px;
+    text-align: center;
+    color: white;
+    font-size: calc(var(--width) / 1.5);
+  }
   .bar {
     width: var(--width);
     height: var(--height);
@@ -25,4 +38,11 @@
     margin: 1px 1px;
   }
 
+  .container {
+    height: 500px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    align-items: center;
+  }
 </style>

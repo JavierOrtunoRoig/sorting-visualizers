@@ -3,7 +3,7 @@
   import Options from "./components/Options.svelte";
 
   let state = [];
-  let width = 10;
+  let width = 20;
 </script>
 
 <main>
@@ -70,7 +70,7 @@
   .sorted-algotihm {
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
+    align-items: flex-start;
     justify-content: center;
     height: 500px;
   }

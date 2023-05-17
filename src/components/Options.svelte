@@ -8,7 +8,7 @@
   export let state: ArrayElement[];
 
   let selectedAlgoritmh;
-  let widthSlider = [10];
+  let widthSlider = [20];
   let elementsSlider = [5];
   let speedSlider = [1000];
   let frecuency = setFrequency(elementsSlider[0]);
