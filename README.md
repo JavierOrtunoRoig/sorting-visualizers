@@ -74,3 +74,29 @@ The selection sort algorithm also has a time complexity of O(n^2), which means i
 ![Selection Sort](https://markbowman.org/LCC/SortSelection.gif)
 
 You can find the code for the bubble sort algorithm in [here.](docs/selectionSort.ts)
+
+### Insertion Sort
+
+The insertionsort algorithm is a simple sorting algorithm used to sort a list of elements. The approach of insertionsort is to build a sorted list by inserting elements one by one into their correct position within the list.
+
+Here's the pseudocode for the insertionsort algorithm:
+
+1. Start the insertionsort algorithm
+2. Define a list of elements to be sorted
+3. Get the number of elements in the list (n)
+4. Repeat steps 5-7 for i from 1 to n-1
+5. Set the current element as the element at position i
+6. Set the index j as i-1
+7. While j >= 0 and the element at position j is greater than the current element, move the element at position j to the right and decrease j by 1
+8. Place the current element at position j+1
+9. End of the outer loop
+10. End of the insertionsort algorithm
+
+
+In each outer iteration (step 4), the algorithm selects an element from the list and inserts it into the correct position within the sorted portion of the list. To do this, the current element is compared with the elements in the sorted portion of the list (step 7), and greater elements are shifted to the right to make room for the insertion of the current element.
+
+The insertion process involves moving greater elements to the right until the correct position for inserting the current element is found. Once found, the current element is placed at that position (step 8).
+
+The insertionsort algorithm has a time complexity of O(n^2), which means its efficiency decreases significantly for large lists. However, insertionsort can be efficient for small or nearly sorted lists, as its performance improves when the list is partially sorted. Additionally, the insertionsort algorithm has the advantage of being stable, which means it does not change the relative order of elements with identical keys.
+
+![Insertion Sort](https://upload.wikimedia.org/wikipedia/commons/0/0f/Insertion-sort-example-300px.gif)
